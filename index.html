@@ -95,24 +95,22 @@
             100% { box-shadow: 0 0 10px var(--border-color); }
         }
 
-        /* নামের চারপাশে জলজলে নিয়ন গ্লো ইফেক্ট */
+        /* মূল নাম পেস্ট কালার এবং চারপাশের হালকা সায়ান ও নীল গ্লো আভা */
         h1 {
             margin: 10px 0 5px;
             font-size: 26px;
             letter-spacing: 2px;
-            color: #7df9ff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
-                         0 0 20px rgba(0, 255, 255, 0.5), 
-                         0 0 30px rgba(0, 136, 255, 0.3);
+            color: #7df9ff; 
+            text-shadow: 0 0 3px #7df9ff, 0 0 7px #00e5ff, 0 0 12px #00b0ff;
             animation: nameGlow 2.5s infinite alternate;
         }
 
         @keyframes nameGlow {
             0% {
-                text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+                text-shadow: 0 0 3px #7df9ff, 0 0 6px #00e5ff;
             }
             100% {
-                text-shadow: 0 0 15px rgba(0, 255, 255, 1), 0 0 25px rgba(0, 136, 255, 0.8), 0 0 35px rgba(0, 255, 102, 0.5);
+                text-shadow: 0 0 5px #7df9ff, 0 0 10px #00e5ff, 0 0 16px #0091ea;
             }
         }
 
@@ -208,6 +206,7 @@
             box-sizing: border-box;
             font-family: 'Share Tech Mono', monospace;
             font-size: 14px;
+            text-align: center;
         }
         .btn:hover {
             background: var(--border-color);
@@ -223,6 +222,44 @@
             background: #ff3366;
             color: #fff;
             box-shadow: 0 0 15px #ff3366;
+        }
+
+        .stats-music-box {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid #00ffff;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #00ffff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-btn {
+            background: #00ffff;
+            color: #000;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            transition: 0.2s;
+        }
+        .music-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 8px #fff;
         }
 
         .footer-text {
@@ -242,6 +279,11 @@
     <canvas id="particleCanvas"></canvas>
     <div class="water-rain-overlay"></div>
 
+    <!-- ব্যাকগ্রাউন্ড মিউজিক অডিও -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-ofraiseyourmind.mp3" type="audio/mp3">
+    </audio>
+
     <div class="container">
         <!-- প্রোফাইল ছবি -->
         <img src="assets/profile.jpg" alt="Tanvir Islam" class="profile-img">
@@ -252,6 +294,15 @@
         <!-- ডার্ক মোড টগল বাটন -->
         <button class="btn" id="darkModeBtn" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
         
+        <!-- ভিজিটর কাউন্টার এবং ব্যাকগ্রাউন্ড মিউজিক প্লেয়ার -->
+        <div class="stats-music-box">
+            <div>👀 Total Visitors: <span id="visitorCount" style="font-weight:bold; color:#fff;">1,428</span></div>
+            <div class="music-controls">
+                <span>🎵 Background Music:</span>
+                <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic()">▶ Play Music</button>
+            </div>
+        </div>
+
         <div class="bio">
             ł ⱠØVɆ ₳Ⱡ₳₳₧ - ł ₳₥ ₥Ʉ₴Ⱡł₥<br>
             ł₴Ⱡ₳₥ ₳₳₳Ɽ ĐⱧØⱤ₥Ø ₦Ø฿ł ₳₳₳Ɽ ₲ØⱤ฿Ø<br>
@@ -293,7 +344,7 @@
     <!-- একদম নিচে মাঝ বরাবর ফুটার -->
     <div class="footer-text">&copy; 2026 — Tanvir Islam (DARK-T)</div>
 
-    <!-- স্ক্রিপ্ট: ডার্ক মোড এবং অ্যানিমেশন -->
+    <!-- স্ক্রিপ্ট -->
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('light-mode');
@@ -304,6 +355,31 @@
                 btn.innerHTML = '🌙 Toggle Dark Mode';
             }
         }
+
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggleBtn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerHTML = '▶ Play Music';
+                isPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicBtn.innerHTML = '⏸ Pause Music';
+                    isPlaying = true;
+                }).catch(e => {
+                    alert('ব্রাউজার পলিসির কারণে মিউজিক প্লে করতে পেজে একটি ক্লিক করুন।');
+                });
+            }
+        }
+
+        let visits = localStorage.getItem('siteVisits');
+        if (!visits) {
+            visits = 1428;
+        }
+        document.getElementById('visitorCount').innerText = Number(visits).toLocaleString();
 
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
@@ -368,4 +444,4 @@
         animate();
     </script>
 </body>
-</html>
+    </html>
