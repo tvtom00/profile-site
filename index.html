@@ -7,37 +7,73 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+        :root {
+            --bg-color: #050505;
+            --text-color: #00ff66;
+            --container-bg: rgba(10, 15, 10, 0.85);
+            --border-color: #00ff66;
+            --caption-bg: rgba(0, 30, 10, 0.8);
+            --btn-bg: rgba(0, 255, 102, 0.05);
+            --btn-text: #00ff66;
+        }
+
+        .light-mode {
+            --bg-color: #f0f2f5;
+            --text-color: #050505;
+            --container-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #0088ff;
+            --caption-bg: rgba(230, 240, 255, 0.9);
+            --btn-bg: rgba(0, 136, 255, 0.05);
+            --btn-text: #0055ff;
+        }
+
         body {
-            background-color: #050505;
-            color: #00ff66;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Share Tech Mono', monospace;
             text-align: center;
             padding: 20px;
             overflow-x: hidden;
             position: relative;
+            margin: 0;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* হ্যাকিং স্ক্যানলাইন এফেক্ট */
-        body::before {
-            content: " ";
-            display: block;
+        #particleCanvas {
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 999;
-            background-size: 100% 2px, 3px 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
+            z-index: 1;
+        }
+
+        .water-rain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.1) 80%);
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.6;
         }
 
         .container {
             max-width: 420px;
-            margin: auto;
-            background: rgba(10, 15, 10, 0.9);
+            margin: 40px auto;
+            background: var(--container-bg);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
-            border: 1px solid #00ff66;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+            border: 1px solid var(--border-color);
             position: relative;
+            z-index: 3;
+            backdrop-filter: blur(2px);
+            transition: background 0.3s, border 0.3s;
         }
 
         .profile-img {
@@ -45,22 +81,22 @@
             height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #00ff66;
-            box-shadow: 0 0 15px #00ff66;
+            border: 3px solid var(--border-color);
+            box-shadow: 0 0 15px var(--border-color);
             animation: pulseGlow 2s infinite;
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px #00ff66; }
-            50% { box-shadow: 0 0 25px #00ff66, inset 0 0 10px #00ff66; }
-            100% { box-shadow: 0 0 10px #00ff66; }
+            0% { box-shadow: 0 0 10px var(--border-color); }
+            50% { box-shadow: 0 0 25px var(--border-color), inset 0 0 10px var(--border-color); }
+            100% { box-shadow: 0 0 10px var(--border-color); }
         }
 
         h1 {
             margin: 10px 0 5px;
             font-size: 26px;
             letter-spacing: 2px;
-            text-shadow: 0 0 8px #00ff66;
+            text-shadow: 0 0 8px var(--text-color);
         }
 
         .nickname {
@@ -72,31 +108,31 @@
         }
 
         .bio {
-            color: #8affaa;
+            color: var(--text-color);
             font-size: 13px;
             margin-bottom: 15px;
             white-space: pre-line;
             line-height: 1.4;
-            border-left: 2px dashed #00ff66;
+            border-left: 2px dashed var(--border-color);
             padding-left: 8px;
             text-align: left;
+            opacity: 0.9;
         }
 
         .caption-box {
-            background: rgba(0, 30, 10, 0.8);
+            background: var(--caption-bg);
             border-left: 3px solid #00ffff;
             padding: 10px;
             margin: 15px 0;
             border-radius: 5px;
             font-size: 13px;
-            color: #a5f3fc;
+            color: var(--text-color);
             text-align: left;
             white-space: pre-line;
             line-height: 1.4;
-            box-shadow: inset 0 0 10px rgba(0,255,255,0.2);
+            box-shadow: inset 0 0 10px rgba(0,255,255,0.1);
         }
 
-        /* বিজনেস প্রমোশন ব্যানার বক্স */
         .business-box {
             background: rgba(255, 0, 85, 0.1);
             border: 1px dashed #ff0055;
@@ -117,7 +153,6 @@
             margin: 0 0 10px 0;
         }
 
-        /* ফটো গ্যালারি সেকশন */
         .gallery-container {
             display: flex;
             gap: 8px;
@@ -130,32 +165,37 @@
             height: 70px;
             border-radius: 5px;
             object-fit: cover;
-            border: 1px solid #00ff66;
+            border: 1px solid var(--border-color);
             transition: 0.3s;
         }
         .gallery-item:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 10px #00ff66;
+            box-shadow: 0 0 10px var(--border-color);
         }
 
         .btn {
             display: block;
-            background: rgba(0, 255, 102, 0.05);
-            color: #00ff66;
-            border: 1px solid #00ff66;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--border-color);
             padding: 12px;
             margin: 10px 0;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
-            box-shadow: 0 0 5px rgba(0,255,102,0.2);
+            box-shadow: 0 0 5px rgba(0,255,102,0.1);
             letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
         }
         .btn:hover {
-            background: #00ff66;
-            color: #050505;
-            box-shadow: 0 0 15px #00ff66;
+            background: var(--border-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--border-color);
         }
 
         .btn-business {
@@ -171,12 +211,18 @@
 </head>
 <body>
 
+    <canvas id="particleCanvas"></canvas>
+    <div class="water-rain-overlay"></div>
+
     <div class="container">
         <!-- প্রোফাইল ছবি -->
         <img src="assets/profile.jpg" alt="Tanvir Islam" class="profile-img">
         
         <h1>Tanvir Islam</h1>
         <div class="nickname">[ DARK-T // CYBER_PUNK ]</div>
+
+        <!-- ডার্ক মোড টগল বাটন -->
+        <button class="btn" id="darkModeBtn" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
         
         <div class="bio">
             ł ⱠØVɆ ₳ⱠⱠ₳₧ - ł ₳₥ ₥Ʉ₴Ⱡł₥<br>
@@ -203,12 +249,9 @@
             <a href="https://www.facebook.com/share/199Hne5dK8/" class="btn btn-business" target="_blank">⚡ Visit Business Page</a>
         </div>
 
-        <!-- ফটো গ্যালারি (নতুন ছবি যোগ করতে চাইলে img ট্যাগ বাড়িয়ে দিন) -->
+        <!-- ফটো গ্যালারি -->
         <div class="gallery-container">
             <img src="assets/profile.jpg" alt="Photo 1" class="gallery-item">
-            <!-- পরবর্তীতে নতুন ছবি যোগ করতে চাইলে নিচের কমেন্ট তুলে দিয়ে ট্যাগ দিন -->
-            <!-- <img src="assets/photo2.jpg" alt="Photo 2" class="gallery-item"> -->
-            <!-- <img src="assets/photo3.jpg" alt="Photo 3" class="gallery-item"> -->
         </div>
 
         <!-- সোশ্যাল মিডিয়া ও কন্টাক্ট লিংকসমূহ -->
@@ -219,5 +262,79 @@
         <a href="tel:+8801410293062" class="btn">📞 Contact: +880 1410-293062</a>
     </div>
 
+    <!-- স্ক্রিপ্ট: ডার্ক মোড এবং অ্যানিমেশন -->
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('light-mode');
+            const btn = document.getElementById('darkModeBtn');
+            if (document.body.classList.contains('light-mode')) {
+                btn.innerHTML = '☀️ Toggle Light Mode';
+            } else {
+                btn.innerHTML = '🌙 Toggle Dark Mode';
+            }
+        }
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particlesArray = [];
+        const colors = ['#00ff66', '#00ffff', '#ff0055', '#ffff00', '#9400d3'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.7 + 0.3;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function init() {
+            particlesArray.length = 0;
+            for (let i = 0; i < 70; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
-            </html>
+</html>
