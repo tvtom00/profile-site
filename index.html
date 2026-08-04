@@ -3,74 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanvir Islam - Profile</title>
+    <title>Tanvir Islam - Cyber Profile</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
         body {
-            background-color: #0d0e15;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
+            background-color: #050505;
+            color: #00ff66;
+            font-family: 'Share Tech Mono', monospace;
             text-align: center;
             padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* হ্যাকিং স্ক্যানলাইন এফেক্ট */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
         .container {
-            max-width: 400px;
+            max-width: 420px;
             margin: auto;
-            background: #161b22;
+            background: rgba(10, 15, 10, 0.9);
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+            border: 1px solid #00ff66;
+            position: relative;
         }
+
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #00ffff;
+            border: 3px solid #00ff66;
+            box-shadow: 0 0 15px #00ff66;
+            animation: pulseGlow 2s infinite;
         }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px #00ff66; }
+            50% { box-shadow: 0 0 25px #00ff66, inset 0 0 10px #00ff66; }
+            100% { box-shadow: 0 0 10px #00ff66; }
+        }
+
         h1 {
             margin: 10px 0 5px;
-            font-size: 24px;
+            font-size: 26px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ff66;
         }
+
         .nickname {
             color: #00ffff;
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 10px;
             font-weight: bold;
+            text-shadow: 0 0 5px #00ffff;
         }
+
         .bio {
-            color: #c9d1d9;
+            color: #8affaa;
             font-size: 13px;
             margin-bottom: 15px;
             white-space: pre-line;
             line-height: 1.4;
+            border-left: 2px dashed #00ff66;
+            padding-left: 8px;
+            text-align: left;
         }
+
         .caption-box {
-            background: #21262d;
+            background: rgba(0, 30, 10, 0.8);
             border-left: 3px solid #00ffff;
             padding: 10px;
             margin: 15px 0;
             border-radius: 5px;
             font-size: 13px;
-            color: #8b949e;
+            color: #a5f3fc;
             text-align: left;
             white-space: pre-line;
             line-height: 1.4;
+            box-shadow: inset 0 0 10px rgba(0,255,255,0.2);
         }
+
+        /* বিজনেস প্রমোশন ব্যানার বক্স */
+        .business-box {
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px dashed #ff0055;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+        }
+        .business-box h3 {
+            color: #ff3366;
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            text-shadow: 0 0 5px #ff3366;
+        }
+        .business-box p {
+            font-size: 12px;
+            color: #ff88aa;
+            margin: 0 0 10px 0;
+        }
+
+        /* ফটো গ্যালারি সেকশন */
+        .gallery-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .gallery-item {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            object-fit: cover;
+            border: 1px solid #00ff66;
+            transition: 0.3s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #00ff66;
+        }
+
         .btn {
             display: block;
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid #00ffff;
+            background: rgba(0, 255, 102, 0.05);
+            color: #00ff66;
+            border: 1px solid #00ff66;
             padding: 12px;
             margin: 10px 0;
-            border-radius: 8px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            box-shadow: 0 0 5px rgba(0,255,102,0.2);
+            letter-spacing: 1px;
         }
         .btn:hover {
-            background: #00ffff;
-            color: #0d0e15;
+            background: #00ff66;
+            color: #050505;
+            box-shadow: 0 0 15px #00ff66;
+        }
+
+        .btn-business {
+            border-color: #ff3366;
+            color: #ff3366;
+        }
+        .btn-business:hover {
+            background: #ff3366;
+            color: #fff;
+            box-shadow: 0 0 15px #ff3366;
         }
     </style>
 </head>
@@ -81,11 +176,11 @@
         <img src="assets/profile.jpg" alt="Tanvir Islam" class="profile-img">
         
         <h1>Tanvir Islam</h1>
-        <div class="nickname">DARK-T</div>
+        <div class="nickname">[ DARK-T // CYBER_PUNK ]</div>
         
         <div class="bio">
             ł ⱠØVɆ ₳ⱠⱠ₳₧ - ł ₳₥ ₥Ʉ₴Ⱡł₥<br>
-            ł₴Ⱡ₳₥ ₳₥₳Ɽ ĐⱧØⱤ₥Ø ₦Ø฿ł ₳₥₳Ɽ ₲ØⱤ฿Ø<br>
+            ł₴Ⱡ₳₥ ₳₳₳Ɽ ĐⱧØⱤ₥Ø ₦Ø฿ł ₳₳₳Ɽ ₲ØⱤ฿Ø<br>
             ₥Ɏ ⱠØVɆ ₳₥₥Ʉ/₳฿฿Ʉ<br>
             ꧁❥❥━──➸➽❂❥❥━──➸
         </div>
@@ -101,13 +196,28 @@
             ---Tanvir.....
         </div>
 
+        <!-- বিজনেস প্রমোশন সেকশন -->
+        <div class="business-box">
+            <h3>🔥 Men's Fashion BD</h3>
+            <p>Exclusive Men's Apparel & Online Collection</p>
+            <a href="https://www.facebook.com/share/199Hne5dK8/" class="btn btn-business" target="_blank">⚡ Visit Business Page</a>
+        </div>
+
+        <!-- ফটো গ্যালারি (নতুন ছবি যোগ করতে চাইলে img ট্যাগ বাড়িয়ে দিন) -->
+        <div class="gallery-container">
+            <img src="assets/profile.jpg" alt="Photo 1" class="gallery-item">
+            <!-- পরবর্তীতে নতুন ছবি যোগ করতে চাইলে নিচের কমেন্ট তুলে দিয়ে ট্যাগ দিন -->
+            <!-- <img src="assets/photo2.jpg" alt="Photo 2" class="gallery-item"> -->
+            <!-- <img src="assets/photo3.jpg" alt="Photo 3" class="gallery-item"> -->
+        </div>
+
         <!-- সোশ্যাল মিডিয়া ও কন্টাক্ট লিংকসমূহ -->
-        <a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">📘 Facebook</a>
-        <a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">▶️ YouTube Channel</a>
+        <a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">📘 Personal Facebook</a>
+        <a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">▶️ YouTube Channel (Tanvir Vlog 2.0)</a>
         <a href="https://www.tiktok.com/@_tanvir_vai_official_1" class="btn" target="_blank">🎵 TikTok</a>
         <a href="https://www.instagram.com/tanvirislam_7781" class="btn" target="_blank">📸 Instagram</a>
         <a href="tel:+8801410293062" class="btn">📞 Contact: +880 1410-293062</a>
     </div>
 
 </body>
-  </html>
+            </html>
