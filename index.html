@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <style>
-    /* লোডার ওভারলে ঠিক করতে একটু CSS যোগ করা হলো (আপনার style.css-এর সাথে মিলবে) */
+    /* লোডার ওভারলে ঠিক করতে CSS */
     #loader {
       position: fixed;
       top: 0;
@@ -26,7 +26,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.8s ease;
+      transition: opacity 0.5s ease;
     }
     #loader.hide {
       opacity: 0;
@@ -181,49 +181,33 @@
     </div>
   </div>
 
-  <!-- JavaScript (লোডার হাইড + অন্যান্য ফাংশন) -->
+  <!-- JavaScript (সবকিছু ঠিক করতে) -->
   <script>
-    // ---------- লোডার হাইড করা (আপনার script.js-এর আগে) ----------
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('loader');
-      if (loader) {
-        // ১ সেকেন্ড পর লোডার ফেইড আউট
-        setTimeout(function() {
+    // ---------- লোডার সরান (জোর করে) ----------
+    (function() {
+      // পেজ লোড হওয়ার ১ সেকেন্ড পর লোডার হাইড
+      setTimeout(function() {
+        var loader = document.getElementById('loader');
+        if (loader) {
           loader.classList.add('hide');
-        }, 1000);
-      }
-    });
-
-    // ---------- ভিজিটর কাউন্টার (সিম্পল) ----------
-    const visitorSpan = document.getElementById('visitorCount');
-    if (visitorSpan) {
-      let count = 1;
-      setInterval(() => {
-        count += Math.floor(Math.random() * 3) + 1;
-        visitorSpan.textContent = String(count).padStart(6, '0');
-      }, 3000);
-    }
-
-    // ---------- মিউজিক বাটন ----------
-    const musicBtn = document.getElementById('musicBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    if (musicBtn && bgMusic) {
-      musicBtn.addEventListener('click', function() {
-        if (bgMusic.paused) {
-          bgMusic.play();
-          musicBtn.textContent = '⏸ Pause Music';
-        } else {
-          bgMusic.pause();
-          musicBtn.textContent = '▶ Play Music';
         }
-      });
-    }
+      }, 1000);
 
-    // ---------- ম্যাট্রিক্স রেইন (Canvas) ----------
-    const canvas = document.getElementById('matrix');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let w, h;
+      // ব্যাকআপ: ৩ সেকেন্ড পরেও যদি না সরে তাহলে সরিয়ে দেবে
+      setTimeout(function() {
+        var loader = document.getElementById('loader');
+        if (loader && !loader.classList.contains('hide')) {
+          loader.style.display = 'none';
+        }
+      }, 3000);
+    })();
+
+    // ---------- ম্যাট্রিক্স রেইন ----------
+    (function() {
+      var canvas = document.getElementById('matrix');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var w, h;
       function resize() {
         w = canvas.width = window.innerWidth;
         h = canvas.height = window.innerHeight;
@@ -231,19 +215,19 @@
       window.addEventListener('resize', resize);
       resize();
 
-      const cols = Math.floor(w / 20);
-      const drops = Array(cols).fill(1);
-      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+{}:<>?~';
+      var cols = Math.floor(w / 20);
+      var drops = Array(cols).fill(1);
+      var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+{}:<>?~';
 
       function drawMatrix() {
         ctx.fillStyle = 'rgba(0,0,0,0.05)';
         ctx.fillRect(0, 0, w, h);
         ctx.fillStyle = '#00ff99';
         ctx.font = '18px "Share Tech Mono", monospace';
-        for (let i = 0; i < drops.length; i++) {
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          const x = i * 20;
-          const y = drops[i] * 20;
+        for (var i = 0; i < drops.length; i++) {
+          var text = chars[Math.floor(Math.random() * chars.length)];
+          var x = i * 20;
+          var y = drops[i] * 20;
           ctx.fillText(text, x, y);
           if (y > h && Math.random() > 0.975) drops[i] = 0;
           drops[i]++;
@@ -251,20 +235,48 @@
         requestAnimationFrame(drawMatrix);
       }
       drawMatrix();
-    }
+    })();
 
-    // ---------- এলোমেলো গ্লো (অতিরিক্ত) ----------
-    const card = document.querySelector('.glass-card');
-    if (card) {
-      setInterval(() => {
-        const hue = Math.floor(Math.random() * 60) + 180;
-        card.style.boxShadow = `0 0 50px rgba(${hue-180}, ${255}, ${255}, 0.25)`;
-        setTimeout(() => {
+    // ---------- ভিজিটর কাউন্টার ----------
+    (function() {
+      var visitorSpan = document.getElementById('visitorCount');
+      if (!visitorSpan) return;
+      var count = 1;
+      setInterval(function() {
+        count += Math.floor(Math.random() * 3) + 1;
+        visitorSpan.textContent = String(count).padStart(6, '0');
+      }, 3000);
+    })();
+
+    // ---------- মিউজিক বাটন ----------
+    (function() {
+      var musicBtn = document.getElementById('musicBtn');
+      var bgMusic = document.getElementById('bgMusic');
+      if (!musicBtn || !bgMusic) return;
+      musicBtn.addEventListener('click', function() {
+        if (bgMusic.paused) {
+          bgMusic.play().catch(function(e) {});
+          musicBtn.textContent = '⏸ Pause Music';
+        } else {
+          bgMusic.pause();
+          musicBtn.textContent = '▶ Play Music';
+        }
+      });
+    })();
+
+    // ---------- এলোমেলো গ্লো ----------
+    (function() {
+      var card = document.querySelector('.glass-card');
+      if (!card) return;
+      setInterval(function() {
+        var hue = Math.floor(Math.random() * 60) + 180;
+        card.style.boxShadow = '0 0 50px rgba(' + (hue-180) + ', 255, 255, 0.25)';
+        setTimeout(function() {
           card.style.boxShadow = '0 0 40px rgba(0, 255, 255, 0.25)';
         }, 400);
       }, 5000);
-    }
+    })();
   </script>
 
 </body>
-                               </html>
+        </html>
