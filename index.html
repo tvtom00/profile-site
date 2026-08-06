@@ -1,448 +1,267 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-    <meta name="google-site-verification" content="FUUH5NjF2Xaji6piHfpGr8GEIW9D5hDkCTz1OWuviFM" /><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanvir Islam,Dark-T</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --bg-color: #050505;
-            --text-color: #00ff66;
-            --container-bg: rgba(10, 15, 10, 0.85);
-            --border-color: #00ff66;
-            --caption-bg: rgba(0, 30, 10, 0.8);
-            --btn-bg: rgba(0, 255, 102, 0.05);
-            --btn-text: #00ff66;
-        }
+<title>DARK-T | Official Profile</title>
 
-        .light-mode {
-            --bg-color: #f0f2f5;
-            --text-color: #050505;
-            --container-bg: rgba(255, 255, 255, 0.9);
-            --border-color: #0088ff;
-            --caption-bg: rgba(230, 240, 255, 0.9);
-            --btn-bg: rgba(0, 136, 255, 0.05);
-            --btn-text: #0055ff;
-        }
+<link rel="stylesheet" href="style.css">
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Share Tech Mono', monospace;
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: background 0.3s, color 0.3s;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-        .water-rain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(0,255,102,0.03) 100%);
-            pointer-events: none;
-            z-index: 2;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 420px;
-            margin: 20px auto;
-            background: var(--container-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
-            border: 1px solid var(--border-color);
-            position: relative;
-            z-index: 3;
-            backdrop-filter: blur(4px);
-            transition: background 0.3s, border 0.3s;
-        }
-
-        .profile-img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--border-color);
-            box-shadow: 0 0 15px var(--border-color);
-            animation: pulseGlow 2s infinite;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px var(--border-color); }
-            50% { box-shadow: 0 0 25px var(--border-color), inset 0 0 10px var(--border-color); }
-            100% { box-shadow: 0 0 10px var(--border-color); }
-        }
-
-        /* মূল নাম পেস্ট কালার এবং চারপাশের হালকা সায়ান ও নীল গ্লো আভা */
-        h1 {
-            margin: 10px 0 5px;
-            font-size: 26px;
-            letter-spacing: 2px;
-            color: #7df9ff; 
-            text-shadow: 0 0 3px #7df9ff, 0 0 7px #00e5ff, 0 0 12px #00b0ff;
-            animation: nameGlow 2.5s infinite alternate;
-        }
-
-        @keyframes nameGlow {
-            0% {
-                text-shadow: 0 0 3px #7df9ff, 0 0 6px #00e5ff;
-            }
-            100% {
-                text-shadow: 0 0 5px #7df9ff, 0 0 10px #00e5ff, 0 0 16px #0091ea;
-            }
-        }
-
-        .nickname {
-            color: #00ffff;
-            font-size: 15px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-shadow: 0 0 5px #00ffff;
-        }
-
-        .bio {
-            color: var(--text-color);
-            font-size: 13px;
-            margin-bottom: 15px;
-            white-space: pre-line;
-            line-height: 1.4;
-            border-left: 2px dashed var(--border-color);
-            padding-left: 8px;
-            text-align: left;
-            opacity: 0.95;
-        }
-
-        .caption-box {
-            background: var(--caption-bg);
-            border-left: 3px solid #00ffff;
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 5px;
-            font-size: 13px;
-            color: var(--text-color);
-            text-align: left;
-            white-space: pre-line;
-            line-height: 1.4;
-            box-shadow: inset 0 0 10px rgba(0,255,255,0.1);
-        }
-
-        .business-box {
-            background: rgba(255, 0, 85, 0.1);
-            border: 1px dashed #ff0055;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
-        }
-        .business-box h3 {
-            color: #ff3366;
-            margin: 0 0 5px 0;
-            font-size: 16px;
-            text-shadow: 0 0 5px #ff3366;
-        }
-        .business-box p {
-            font-size: 12px;
-            color: #ff88aa;
-            margin: 0 0 10px 0;
-        }
-
-        .gallery-container {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        .gallery-item {
-            width: 70px;
-            height: 70px;
-            border-radius: 5px;
-            object-fit: cover;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-        }
-        .gallery-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px var(--border-color);
-        }
-
-        .btn {
-            display: block;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 0 5px rgba(0,255,102,0.1);
-            letter-spacing: 1px;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
-            text-align: center;
-        }
-        .btn:hover {
-            background: var(--border-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--border-color);
-        }
-
-        .btn-business {
-            border-color: #ff3366;
-            color: #ff3366;
-        }
-        .btn-business:hover {
-            background: #ff3366;
-            color: #fff;
-            box-shadow: 0 0 15px #ff3366;
-        }
-
-        .stats-music-box {
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid #00ffff;
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #00ffff;
-            box-shadow: 0 0 10px rgba(0,255,255,0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .music-btn {
-            background: #00ffff;
-            color: #000;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            transition: 0.2s;
-        }
-        .music-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 8px #fff;
-        }
-
-        .footer-text {
-            font-size: 13px;
-            opacity: 0.8;
-            margin: 20px 0 10px 0;
-            letter-spacing: 1px;
-            z-index: 3;
-            position: relative;
-            text-align: center;
-            width: 100%;
-        }
-    </style>
 </head>
+
 <body>
 
-    <canvas id="particleCanvas"></canvas>
-    <div class="water-rain-overlay"></div>
+<!-- Matrix Canvas -->
+<canvas id="matrix"></canvas>
 
-    <!-- গ্যারান্টিড ওয়ার্কিং অডিও সোর্স (ডিজাইন অপরিবর্তিত রেখে ফিক্সড করা হয়েছে) -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-ofraiseyourmind.mp3" type="audio/mp3">
-        <source src="assets/music.mp4" type="audio/mp4">
-    </audio>
+<!-- Loading Screen -->
+<div id="loader">
 
-    <div class="container">
-        <!-- প্রোফাইল ছবি -->
-        <img src="assets/profile.jpg" alt="Tanvir Islam" class="profile-img">
-        
-        <h1>Tanvir Islam</h1>
-        <div class="nickname">[ DARK-T // CYBER_PUNK ]</div>
+<div class="loader-content">
 
-        <!-- ডার্ক মোড টগল বাটন -->
-        <button class="btn" id="darkModeBtn" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-        
-        <!-- ভিজিটর কাউন্টার এবং ব্যাকগ্রাউন্ড মিউজিক প্লেয়ার -->
-        <div class="stats-music-box">
-            <div>👀 Total Visitors: <span id="visitorCount" style="font-weight:bold; color:#fff;">1,428</span></div>
-            <div class="music-controls">
-                <span>🎵 Background Music:</span>
-                <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic()">▶ Play Music</button>
-            </div>
-        </div>
+<h1>Loading Profile...</h1>
 
-        <div class="bio">
-            ł ⱠØVɆ ₳Ⱡ₳₳₧ - ł ₳₥ ₥Ʉ₴Ⱡł₥<br>
-            ł₴Ⱡ₳₥ ₳₳₳Ɽ ĐⱧØⱤ₥Ø ₦Ø฿ł ₳₳₳Ɽ ₲ØⱤ฿Ø<br>
-            ₥Ɏ ⱠØVɆ ₳₥₥Ʉ/₳฿฿Ʉ<br>
-            ꧁❥❥━──➸➽❂❥❥━──➸
-        </div>
+<pre id="loadingText">
+██████░░░░ 40%
 
-        <!-- ক্যাপশন সেকশন -->
-        <div class="caption-box">
-            এতো নেশা কেন!<br>
-            তোমার ঐ এলো চুলে<br>
-            তাকালেই যেন যাই সব ভুলে<br>
-            কি দেবো নাম....🤔<br>
-            মাতাল হয়েছি যে নেশায়<br>
-            নেশা নামক সেই তুমিটায়🕊️🌿<br>
-            ---Tanvir.....
-        </div>
+██████████░ 80%
 
-        <!-- বিজনেস প্রমোশন সেকশন -->
-        <div class="business-box">
-            <h3>🔥 Men's Fashion BD</h3>
-            <p>Exclusive Men's Apparel & Online Collection</p>
-            <a href="https://www.facebook.com/share/199Hne5dK8/" class="btn btn-business" target="_blank">⚡ Visit Business Page</a>
-        </div>
+████████████ 100%
 
-        <!-- ফটো গ্যালারি -->
-        <div class="gallery-container">
-            <img src="assets/profile.jpg" alt="Photo 1" class="gallery-item">
-        </div>
+✓ Access Granted
+</pre>
 
-        <!-- সোশ্যাল মিডিয়া ও কন্টাক্ট লিংকসমূহ -->
-        <a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">📘 Personal Facebook</a>
-        <a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">▶️ YouTube Channel (Tanvir Vlog 2.0)</a>
-        <a href="https://www.tiktok.com/@_tanvir_vai_official_1" class="btn" target="_blank">🎵 TikTok</a>
-        <a href="https://www.instagram.com/tanvirislam_7781" class="btn" target="_blank">📸 Instagram</a>
-        <a href="tel:+8801410293062" class="btn">📞 Contact: +880 1410-293062</a>
+</div>
+
+</div>
+
+<!-- Main Container -->
+
+<div class="container" id="mainContainer">
+
+<div class="glass-card">
+
+<img src="assets/profile.jpg" class="profile-img">
+
+<h1>Tanvir Islam</h1>
+
+<h2>[ DARK-T'S PAGE ]</h2>
+
+<p class="welcome">
+
+Welcome Tanvir Islam
+
+</p>
+
+<div class="status-box">
+
+<span class="online"></span>
+
+ONLINE
+
+</div>
+
+<div class="visitor-box">
+
+👁 Visitors :
+<span id="visitorCount">000001</span>
+
+</div>
+
+<div class="music-box">
+
+<button id="musicBtn">
+
+▶ Play Music
+
+</button>
+
+<audio id="bgMusic" loop>
+
+<source src="assets/music.mp3" type="audio/mpeg">
+
+</audio>
+
+</div>
+
+<div class="bio">
+
+Welcome To My Official Website.<br>
+
+Cyber Security Enthusiast.<br>
+
+বাংলাদেশ 🇧🇩
+
     </div>
+    <div class="social-buttons">
 
-    <!-- একদম নিচে মাঝ বরাবর ফুটার -->
-    <div class="footer-text">&copy; 2026 — Tanvir Islam (DARK-T)</div>
+<a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">
+📘 Facebook
+</a>
 
-    <!-- স্ক্রিপ্ট -->
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('light-mode');
-            const btn = document.getElementById('darkModeBtn');
-            if (document.body.classList.contains('light-mode')) {
-                btn.innerHTML = '☀️ Toggle Light Mode';
-            } else {
-                btn.innerHTML = '🌙 Toggle Dark Mode';
-            }
-        }
+<a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">
+▶ YouTube
+</a>
 
-        const music = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicToggleBtn');
-        let isPlaying = false;
+<a href="https://www.instagram.com/tanvirislam_7781" class="btn" target="_blank">
+📷 Instagram
+</a>
 
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                musicBtn.innerHTML = '▶ Play Music';
-                isPlaying = false;
-            } else {
-                music.play().then(() => {
-                    musicBtn.innerHTML = '⏸ Pause Music';
-                    isPlaying = true;
-                }).catch(e => {
-                    alert('ব্রাউজার পলিসির কারণে মিউজিক প্লে করতে পেজে একটি ক্লিক করুন।');
-                });
-            }
-        }
+<a href="https://www.tiktok.com/@_tanvir_vai_official_1" class="btn" target="_blank">
+🎵 TikTok
+</a>
 
-        let visits = localStorage.getItem('siteVisits');
-        if (!visits) {
-            visits = 1428;
-        }
-        document.getElementById('visitorCount').innerText = Number(visits).toLocaleString();
+<a href="tel:+8801410293062" class="btn">
+📞 Contact
+</a>
 
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
+</div>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+<div class="business-box">
 
-        const particlesArray = [];
-        const colors = ['#00ff66', '#00ffff', '#ff0055', '#ffff00', '#9400d3', '#ff33ff', '#00ffcc'];
+<h3>🔥 Men's Fashion BD</h3>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1.5;
-                this.speedY = Math.random() * 3 + 1.5;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.opacity = Math.random() * 0.9 + 0.2;
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                if (this.y > canvas.height) {
-                    this.y = 0;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
+<p>
+Premium Men's Fashion Collection
+</p>
 
-        function init() {
-            particlesArray.length = 0;
-            for (let i = 0; i < 150; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-        init();
+<a href="https://www.facebook.com/share/199Hne5dK8/"
+class="btn business-btn"
+target="_blank">
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
+Visit Business Page
+
+</a>
+
+</div>
+
+<div class="gallery">
+
+<img src="assets/profile.jpg" alt="Profile">
+
+</div>
+
+<div class="access-box">
+
+<h3>ACCESS LEVEL</h3>
+
+<div class="progress">
+
+<div class="progress-bar"></div>
+
+</div>
+
+<p>████████████ 100%</p>
+
+</div>
+
+<div class="terminal">
+
+<p>> SYSTEM ONLINE</p>
+<p>> USER VERIFIED</p>
+<p>> ACCESS GRANTED</p>
+<p>> ENCRYPTION ENABLED</p>
+
+    </div>
+    <div class="system-info">
+
+<div class="info-row">
+<span class="label">STATUS</span>
+<span class="value online-text">ONLINE</span>
+</div>
+
+<div class="info-row">
+<span class="label">SERVER</span>
+<span class="value">BANGLADESH</span>
+</div>
+
+<div class="info-row">
+<span class="label">SECURITY</span>
+<span class="value">MAXIMUM</span>
+</div>
+
+<div class="info-row">
+<span class="label">PROFILE</span>
+<span class="value">VERIFIED</span>
+</div>
+
+<div class="info-row">
+<span class="label">DEVICE</span>
+<span class="value">ANDROID</span>
+</div>
+
+</div>
+
+<div class="quote-box">
+
+<p>
+
+"Stay Anonymous.<br>
+Stay Secure.<br>
+Stay Different."
+
+</p>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 DARK-T | All Rights Reserved
+
+</p>
+
+</footer>
+
+</div>
+
+    </div>
+    <!-- Login Button -->
+
+<button id="loginBtn" class="btn">
+
+LOGIN TERMINAL
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Hidden Access Screen -->
+
+<div id="accessScreen">
+
+<div class="access-content">
+
+<h2>ACCESS GRANTED</h2>
+
+<p>
+
+Welcome Tanvir Islam
+
+</p>
+
+<p>
+
+[DARK-T'S PAGE]
+
+</p>
+
+</div>
+
+</div>
+
+<!-- JavaScript -->
+
+<script src="script.js"></script>
+
 </body>
-</html>
+    </html>
