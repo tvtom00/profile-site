@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <style>
-    /* লোডার ওভারলে ঠিক করতে CSS */
+    /* লোডার ওভারলে */
     #loader {
       position: fixed;
       top: 0;
@@ -26,11 +26,14 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.3s ease;
     }
     #loader.hide {
       opacity: 0;
       pointer-events: none;
+    }
+    #loader.remove {
+      display: none !important;
     }
     .container {
       position: relative;
@@ -181,11 +184,11 @@
     </div>
   </div>
 
-  <!-- JavaScript (সবকিছু ঠিক করতে) -->
+  <!-- JavaScript (সবকিছু জোর করে ঠিক করতে) -->
   <script>
-    // ---------- লোডার সরান (জোর করে) ----------
+    // ========== লোডার সরান (সবচেয়ে জোরালো পদ্ধতি) ==========
     (function() {
-      // পেজ লোড হওয়ার ১ সেকেন্ড পর লোডার হাইড
+      // পদ্ধতি ১: ১ সেকেন্ড পর লোডার হাইড
       setTimeout(function() {
         var loader = document.getElementById('loader');
         if (loader) {
@@ -193,13 +196,49 @@
         }
       }, 1000);
 
-      // ব্যাকআপ: ৩ সেকেন্ড পরেও যদি না সরে তাহলে সরিয়ে দেবে
+      // পদ্ধতি ২: ২ সেকেন্ড পর লোডার পুরোপুরি রিমুভ (জোর করে)
       setTimeout(function() {
         var loader = document.getElementById('loader');
-        if (loader && !loader.classList.contains('hide')) {
+        if (loader) {
+          loader.classList.add('remove');
           loader.style.display = 'none';
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          loader.style.pointerEvents = 'none';
         }
-      }, 3000);
+      }, 2000);
+
+      // পদ্ধতি ৩: পেজ লোড হওয়ার পর ডিলিট (ব্যাকআপ)
+      window.addEventListener('load', function() {
+        var loader = document.getElementById('loader');
+        if (loader) {
+          setTimeout(function() {
+            loader.classList.add('remove');
+            loader.style.display = 'none';
+          }, 500);
+        }
+      });
+
+      // পদ্ধতি ৪: DOM রেডি হওয়ার পর (সবচেয়ে দ্রুত)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          var loader = document.getElementById('loader');
+          if (loader) {
+            setTimeout(function() {
+              loader.classList.add('remove');
+              loader.style.display = 'none';
+            }, 800);
+          }
+        });
+      } else {
+        var loader = document.getElementById('loader');
+        if (loader) {
+          setTimeout(function() {
+            loader.classList.add('remove');
+            loader.style.display = 'none';
+          }, 800);
+        }
+      }
     })();
 
     // ---------- ম্যাট্রিক্স রেইন ----------
@@ -279,4 +318,4 @@
   </script>
 
 </body>
-        </html>
+  </html>
