@@ -1,267 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DARK-T | Official Profile</title>
 
-<title>DARK-T | Official Profile</title>
+  <!-- আপনার style.css (আমি দেওয়া CSS) -->
+  <link rel="stylesheet" href="style.css" />
 
-<link rel="stylesheet" href="style.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 </head>
-
 <body>
 
-<!-- Matrix Canvas -->
-<canvas id="matrix"></canvas>
+  <!-- Matrix Canvas -->
+  <canvas id="matrix"></canvas>
 
-<!-- Loading Screen -->
-<div id="loader">
-
-<div class="loader-content">
-
-<h1>Loading Profile...</h1>
-
-<pre id="loadingText">
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-content">
+      <h1>Loading Profile...</h1>
+      <pre id="loadingText">
 ██████░░░░ 40%
-
 ██████████░ 80%
-
 ████████████ 100%
-
 ✓ Access Granted
-</pre>
-
-</div>
-
-</div>
-
-<!-- Main Container -->
-
-<div class="container" id="mainContainer">
-
-<div class="glass-card">
-
-<img src="assets/profile.jpg" class="profile-img">
-
-<h1>Tanvir Islam</h1>
-
-<h2>[ DARK-T'S PAGE ]</h2>
-
-<p class="welcome">
-
-Welcome Tanvir Islam
-
-</p>
-
-<div class="status-box">
-
-<span class="online"></span>
-
-ONLINE
-
-</div>
-
-<div class="visitor-box">
-
-👁 Visitors :
-<span id="visitorCount">000001</span>
-
-</div>
-
-<div class="music-box">
-
-<button id="musicBtn">
-
-▶ Play Music
-
-</button>
-
-<audio id="bgMusic" loop>
-
-<source src="assets/music.mp3" type="audio/mpeg">
-
-</audio>
-
-</div>
-
-<div class="bio">
-
-Welcome To My Official Website.<br>
-
-Cyber Security Enthusiast.<br>
-
-বাংলাদেশ 🇧🇩
-
+      </pre>
     </div>
-    <div class="social-buttons">
+  </div>
 
-<a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">
-📘 Facebook
-</a>
+  <!-- Main Container -->
+  <div class="container" id="mainContainer">
+    <div class="glass-card">
 
-<a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">
-▶ YouTube
-</a>
+      <!-- Profile Image -->
+      <img src="assets/profile.jpg" class="profile-img" alt="Profile" />
 
-<a href="https://www.instagram.com/tanvirislam_7781" class="btn" target="_blank">
-📷 Instagram
-</a>
+      <h1>Tanvir Islam</h1>
+      <h2>[ DARK-T'S PAGE ]</h2>
 
-<a href="https://www.tiktok.com/@_tanvir_vai_official_1" class="btn" target="_blank">
-🎵 TikTok
-</a>
+      <p class="welcome">Welcome Tanvir Islam</p>
 
-<a href="tel:+8801410293062" class="btn">
-📞 Contact
-</a>
+      <!-- Status -->
+      <div class="status-box">
+        <span class="online"></span>
+        ONLINE
+      </div>
 
-</div>
+      <!-- Visitor -->
+      <div class="visitor-box">
+        👁 Visitors : <span id="visitorCount">000001</span>
+      </div>
 
-<div class="business-box">
+      <!-- Music -->
+      <div class="music-box">
+        <button id="musicBtn">▶ Play Music</button>
+        <audio id="bgMusic" loop>
+          <source src="assets/music.mp3" type="audio/mpeg" />
+        </audio>
+      </div>
 
-<h3>🔥 Men's Fashion BD</h3>
+      <!-- Bio -->
+      <div class="bio">
+        Welcome To My Official Website.<br />
+        Cyber Security Enthusiast.<br />
+        বাংলাদেশ 🇧🇩
+      </div>
 
-<p>
-Premium Men's Fashion Collection
-</p>
+      <!-- Social Buttons -->
+      <div class="social-buttons">
+        <a href="https://www.facebook.com/share/1EngM4QciL/" class="btn" target="_blank">📘 Facebook</a>
+        <a href="https://youtube.com/@tanvirislam2478?si=AjWrr573NAsQ7ON0" class="btn" target="_blank">▶ YouTube</a>
+        <a href="https://www.instagram.com/tanvirislam_7781" class="btn" target="_blank">📷 Instagram</a>
+        <a href="https://www.tiktok.com/@_tanvir_vai_official_1" class="btn" target="_blank">🎵 TikTok</a>
+        <a href="tel:+8801410293062" class="btn">📞 Contact</a>
+      </div>
 
-<a href="https://www.facebook.com/share/199Hne5dK8/"
-class="btn business-btn"
-target="_blank">
+      <!-- Business Box -->
+      <div class="business-box">
+        <h3>🔥 Men's Fashion BD</h3>
+        <p>Premium Men's Fashion Collection</p>
+        <a href="https://www.facebook.com/share/199Hne5dK8/" class="btn business-btn" target="_blank">Visit Business Page</a>
+      </div>
 
-Visit Business Page
+      <!-- Gallery -->
+      <div class="gallery">
+        <img src="assets/profile.jpg" alt="Profile" />
+      </div>
 
-</a>
+      <!-- Access Level -->
+      <div class="access-box">
+        <h3>ACCESS LEVEL</h3>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+        <p>████████████ 100%</p>
+      </div>
 
-</div>
+      <!-- Terminal -->
+      <div class="terminal">
+        <p>&gt; SYSTEM ONLINE</p>
+        <p>&gt; USER VERIFIED</p>
+        <p>&gt; ACCESS GRANTED</p>
+        <p>&gt; ENCRYPTION ENABLED</p>
+      </div>
 
-<div class="gallery">
+      <!-- System Info -->
+      <div class="system-info">
+        <div class="info-row">
+          <span class="label">STATUS</span>
+          <span class="value online-text">ONLINE</span>
+        </div>
+        <div class="info-row">
+          <span class="label">SERVER</span>
+          <span class="value">BANGLADESH</span>
+        </div>
+        <div class="info-row">
+          <span class="label">SECURITY</span>
+          <span class="value">MAXIMUM</span>
+        </div>
+        <div class="info-row">
+          <span class="label">PROFILE</span>
+          <span class="value">VERIFIED</span>
+        </div>
+        <div class="info-row">
+          <span class="label">DEVICE</span>
+          <span class="value">ANDROID</span>
+        </div>
+      </div>
 
-<img src="assets/profile.jpg" alt="Profile">
+      <!-- Quote -->
+      <div class="quote-box">
+        <p>"Stay Anonymous.<br />Stay Secure.<br />Stay Different."</p>
+      </div>
 
-</div>
+      <!-- Footer -->
+      <footer>
+        <p>© 2026 DARK-T | All Rights Reserved</p>
+      </footer>
 
-<div class="access-box">
+      <!-- Login Button (ভিতরে) -->
+      <button id="loginBtn" class="btn" style="margin-top:20px;">LOGIN TERMINAL</button>
 
-<h3>ACCESS LEVEL</h3>
+    </div> <!-- .glass-card -->
+  </div> <!-- .container -->
 
-<div class="progress">
-
-<div class="progress-bar"></div>
-
-</div>
-
-<p>████████████ 100%</p>
-
-</div>
-
-<div class="terminal">
-
-<p>> SYSTEM ONLINE</p>
-<p>> USER VERIFIED</p>
-<p>> ACCESS GRANTED</p>
-<p>> ENCRYPTION ENABLED</p>
-
+  <!-- Hidden Access Screen -->
+  <div id="accessScreen">
+    <div class="access-content">
+      <h2>ACCESS GRANTED</h2>
+      <p>Welcome Tanvir Islam</p>
+      <p>[DARK-T'S PAGE]</p>
     </div>
-    <div class="system-info">
+  </div>
 
-<div class="info-row">
-<span class="label">STATUS</span>
-<span class="value online-text">ONLINE</span>
-</div>
-
-<div class="info-row">
-<span class="label">SERVER</span>
-<span class="value">BANGLADESH</span>
-</div>
-
-<div class="info-row">
-<span class="label">SECURITY</span>
-<span class="value">MAXIMUM</span>
-</div>
-
-<div class="info-row">
-<span class="label">PROFILE</span>
-<span class="value">VERIFIED</span>
-</div>
-
-<div class="info-row">
-<span class="label">DEVICE</span>
-<span class="value">ANDROID</span>
-</div>
-
-</div>
-
-<div class="quote-box">
-
-<p>
-
-"Stay Anonymous.<br>
-Stay Secure.<br>
-Stay Different."
-
-</p>
-
-</div>
-
-<footer>
-
-<p>
-
-© 2026 DARK-T | All Rights Reserved
-
-</p>
-
-</footer>
-
-</div>
-
-    </div>
-    <!-- Login Button -->
-
-<button id="loginBtn" class="btn">
-
-LOGIN TERMINAL
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Hidden Access Screen -->
-
-<div id="accessScreen">
-
-<div class="access-content">
-
-<h2>ACCESS GRANTED</h2>
-
-<p>
-
-Welcome Tanvir Islam
-
-</p>
-
-<p>
-
-[DARK-T'S PAGE]
-
-</p>
-
-</div>
-
-</div>
-
-<!-- JavaScript -->
-
-<script src="script.js"></script>
-
+  <!-- JavaScript -->
+  <script src="script.js"></script>
 </body>
-    </html>
+          </html>
